@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class movie
+class Movie
 {
     const PATH_POSTERS = "posters";
     public int $id;

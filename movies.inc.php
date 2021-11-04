@@ -1,10 +1,11 @@
 <?php
 
-require "src/movie.php";
+/**
+ * Este archivo se encarga de Crear objetos de tipo @Movie y establecerle valores manualmente sin usar formularios
+ * ni bases de datos, guarda los objetos de tipo @Movie en la array común de objetos @movies.
+ */
 
-$movies = [];
-
-$movie = new movie();
+$movie = new Movie();
 $movie->setId(1);
 $movie->setTitle("Eternals");
 $movie->setPoster("Eternals.jpg");
@@ -18,7 +19,7 @@ $movie->setRating(3.80);
 
 $movies[] = $movie;
 
-$movie = new movie();
+$movie = new Movie();
 $movie->setId(2);
 $movie->setTitle("Venom: Let There Be Carnage");
 $movie->setPoster("Venom.jpg");
@@ -32,7 +33,7 @@ $movie->setRating(4.20);
 
 $movies[] = $movie;
 
-$movie = new movie();
+$movie = new Movie();
 $movie->setId(3);
 $movie->setTitle("Ready Player One");
 $movie->setPoster("Ready_Player_One.jpg");
