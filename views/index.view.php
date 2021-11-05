@@ -14,6 +14,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Rubén Romera">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Movies</title>
 </head>
 <body>

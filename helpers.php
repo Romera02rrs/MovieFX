@@ -23,7 +23,7 @@ function validate_string(string $string, int $minLength = 1,
                          int $maxLength = 50000): bool
 {
     if (empty($string))
-        throw new RequiredValidationException("The string is required");
+        throw new RequiredValidationException();
     if (strlen($string) < $minLength)
         throw new TooShortValidationException("The string is too short");
     if (strlen($string) > $maxLength)

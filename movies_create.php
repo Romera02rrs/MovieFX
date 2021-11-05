@@ -21,6 +21,8 @@ $data["overview"] = "";
 $data["poster"] = "";
 $data["rating"] = 0;
 
+echo print_r($data);
+
 $validTypes = ["image/jpeg", "image/jpg"];
 
 $errors = [];
@@ -29,33 +31,33 @@ $errors = [];
 if (isPost()) {
 
     try {
-        if (validate_string($_POST["title"], 1, 100))
+        if (validate_string($_POST["title"], 2,  100))
             $data["title"] = clean($_POST["title"]);
 
-    } catch (RequiredValidationException $e) {
-        $errors[] = "Error en validar el títol";
+    } catch (RequiredValidationException $e) { // ?
+        $errors[] =  $e->getMessage();
     } catch (TooLongValidationException $e) {
-        $errors[] = "Error en validar el títol";
+        $errors[] =  $e->getMessage();
     } catch (TooShortValidationException $e) {
-        $errors[] = "Error en validar el títol";
+        $errors[] = $e->getMessage();
     }
 
     try {
-        if (validate_string($_POST["overview"], 1, 1000))
+        if (validate_string($_POST["overview"], 2, 1000)) // ?
             $data["overview"] = clean($_POST["overview"]);
-
     } catch (ValidationException $e) {
+        //$errors[] = $e->getMessage();   ?
         $errors[] = "Error en validar la sinopsi";
     }
 
 
-    if (!empty($_POST["release_date"]) && (validate_date($_POST["release_date"])))
+    if (!empty($_POST["release_date"]) && (validate_date($_POST["release_date"]))) // ?
         $data["release_date"] = $_POST["release_date"];
     else
         $errors[] = "Cal indicar una data correcta";
 
 
-    $ratingTemp = filter_input(INPUT_POST, "rating", FILTER_VALIDATE_FLOAT);
+    $ratingTemp = filter_input(INPUT_POST, "rating", FILTER_VALIDATE_FLOAT); // = if($_POST["rating"] == type float) ¿FLOAT?
 
     if (!empty($ratingTemp) && ($ratingTemp > 0 && $ratingTemp <= 5))
         $data["rating"] = $ratingTemp;
@@ -63,7 +65,7 @@ if (isPost()) {
         $errors[] = "El rating ha de ser un enter entre 1 i 5";
 
     try {
-        if (!empty($_FILES['poster']) && ($_FILES['poster']['error'] == UPLOAD_ERR_OK)) {
+        if (!empty($_FILES['poster']) && ($_FILES['poster']['error'] == UPLOAD_ERR_OK)) { // ?
             if (!file_exists(Movie::PATH_POSTERS))
                 mkdir(Movie::PATH_POSTERS, 0777, true);
 
@@ -78,10 +80,10 @@ if (isPost()) {
             $fileSize = $_FILES["poster"]["size"];
 
             if (!in_array($mimeType, $validTypes))
-                throw new InvalidTypeFileException("La foto no és jpg");
+                throw new InvalidTypeFileException("La foto no és jpg"); // Throw
 
             if ($extension != 'jpeg')
-                throw new InvalidTypeFileException("La foto no és jpg");
+                throw new InvalidTypeFileException("La foto no és jpg"); // 2 veces
 
             if ($fileSize > MAX_SIZE)
                 throw new TooBigFileException("La foto té $fileSize bytes");

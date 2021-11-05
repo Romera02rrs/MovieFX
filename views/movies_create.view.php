@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="author" content="Rubén Romera">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Movies</title>
 </head>
 
@@ -18,14 +19,14 @@
         ?>
         </pre>
         <div>
-            <label for="title">Title</label>
-            <input id="title" type="text" name="title" value="<?= $data["title"] ?>">
+            <label for="title">Title</label><br>
+            <input id="title" type="text" name="title" value="<?= $data["title"] ?>"><br><br>
         </div>
         <div>
-            <label for="release-date">Release date (YYYY-mm-dd)</label>
-            <input id="title" type="text" name="release_date" value="<?= $data["release_date"] ?>">
+            <label for="release-date">Release date (YYYY-mm-dd)</label><br>
+            <input id="title" type="text" name="release_date" value="<?= $data["release_date"] ?>"><br><br>
         </div>
-        <div>
+        <div id="rata">
             <p>Rating</p>
             <?php foreach ([1, 2, 3, 4, 5] as $ratingValue) : ?>
                 <label for="genre<?= $ratingValue ?>">
@@ -35,16 +36,13 @@
                 </label>
             <?php endforeach ?>
         </div>
-
-
-
         <div>
-            <label for="overview">Overview</label>
-            <textarea id="overview" name="overview"><?= $data["overview"] ?></textarea>
+            <label for="overview">Overview</label><br>
+            <textarea id="overview" name="overview"><?= $data["overview"] ?></textarea><br><br>
         </div>
         <div>
-            <p>Poster</p>
-            <input type="file" name="poster" />
+            <label for="poster">Poster</label><br>
+            <input id="poster" type="file" name="poster" /><br><br>
         </div>
         <div>
             <input type="submit" value="Crear">
