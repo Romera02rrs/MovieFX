@@ -10,12 +10,12 @@
 
 <body>
 <h1>Nueva película</h1>
-<?php if (!isPost() || !empty($errors)) :?>
+<?php if (!isPost() || !empty($errores)) :?>
     <form action="" method="post" enctype="multipart/form-data">
         <pre>
         <?php
-        if (!empty($errors))
-            print_r($errors)
+        if (!empty($errores))
+            print_r($errores)
         ?>
         </pre>
         <div>
@@ -49,7 +49,7 @@
         </div>
     </form>
 <?php endif; ?>
-<?php if (empty($errors) && isPost()) : ?>
+<?php if (empty($errores) && isPost()) : ?>
     <h2><?=$message?></h2>
     <table>
         <tr>

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 class Movie
 {
-    const PATH_POSTERS = "posters";
+    const PATH_POSTERS = "posters/new";
     public int $id;
     private string $title;
     private string $overview;
