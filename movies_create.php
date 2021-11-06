@@ -1,6 +1,11 @@
-<?php declare(strict_types=1); ?>
-
 <?php
+declare(strict_types=1);
+
+/**
+ * Este archivo se encarga de comprobar y validar todos los campos del formulario, asi como todos los datos de entrada
+ * del usuario, primero comprueba que el formulario haya sido enviado y luego llama a las funciones correspondientes
+ * para que se encarguen de validarlo.
+ */
 
 // Inicialitze les variables perquè existisquen en tots els possibles camins
 // Sols emmagatzameré en elles valors vàlids.
@@ -15,25 +20,39 @@ require_once 'src/Movie.php';
 
 const MAX_SIZE = 1024*1000;
 
+/**
+ * Se inicializan las variables para que existan en todos los posibles caminos y poder gurdar el "Sticky Form".
+ * Los datos que obtendrán los campos del formulario se almacenarán en una array asociativa.
+ */
 $data["title"] = "";
 $data["release_date"] = "";
 $data["overview"] = "";
 $data["poster"] = "";
 $data["rating"] = 0;
 
-echo print_r($data);
 
 $validTypes = ["image/jpeg", "image/jpg"];
 
 $errors = [];
 
-// per a la vista necessitem saber si s'ha processat el formulari
+/**
+ * Si el formulario ha sido enviado procedemos a validar los campos necesarios. Comprueba si se ha enviado mediante
+ * la función "isPost()" que se encuentra en el archivo "helpers.php"
+ */
 if (isPost()) {
 
+    /**
+     * LLamo a la función validate_string que se encuentra en "helpers.php" y le paso por parámetros el string que he
+     * obtenido del campo "title", el número mínimo de caracteres y por último el maximo.
+     * La función "validate_string" devuelve true si es válido o por lo contrario lanza una excepción que es capturada
+     * dentro del bloque try-catch.
+     * Si es válido obtiene el valor del formulario y lo pasa por la función "clean" antes de almacenarlo en la array
+     * de datos.
+     */
     try {
-        if (validate_string($_POST["title"], 2,  100))
+        if (validate_string($_POST["title"], 2,  100)) {
             $data["title"] = clean($_POST["title"]);
-
+        }
     } catch (RequiredValidationException $e) { // ?
         $errors[] =  $e->getMessage();
     } catch (TooLongValidationException $e) {

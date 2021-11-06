@@ -68,9 +68,6 @@
             <th>Rating</th>
             <td><?= $data["rating"] ?></td>
         </tr>
-
-
-
     </table>
 <?php endif ?>
 </body>

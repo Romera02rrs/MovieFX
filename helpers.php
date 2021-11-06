@@ -5,8 +5,9 @@ require_once "src/Exceptions/TooShortValidationException.php";
 require_once "src/Exceptions/TooLongValidationException.php";
 
 /**
-* Limpia la cadena de texto que recibe, trim(Elimina espacios en blanco delante y detras del string),
-* htmlspecialchars(impide que se ejecute código html como <b>)
+ * Limpia la cadena de texto que recibe, trim(Elimina espacios en blanco delante y detras del string),
+ * htmlspecialchars(impide que se ejecute código html como <b>).
+ * @return string
 */
 function clean(string $valor): string
 {
@@ -14,13 +15,23 @@ function clean(string $valor): string
     return htmlspecialchars($valor);
 }
 
+/**
+ * @return boolean
+ */
 function isPost(): bool
 {
     return $_SERVER["REQUEST_METHOD"] === "POST";
 }
 
-function validate_string(string $string, int $minLength = 1,
-                         int $maxLength = 50000): bool
+/**
+ * Se encarga de obtener un string, y dos enteros que determinan lan longitud del string, si no cumple con las
+ * validaciones devuelve excepciones. Y si cumple con las validaciones devuelve "true".
+ * @throws RequiredValidationException
+ * @throws TooShortValidationException
+ * @throws TooLongValidationException
+ * @return true
+ */
+function validate_string(string $string, int $minLength = 1, int $maxLength = 50000): bool
 {
     if (empty($string))
         throw new RequiredValidationException();
