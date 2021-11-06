@@ -3,6 +3,7 @@ require_once "src/Exceptions/ValidationException.php";
 require_once "src/Exceptions/RequiredValidationException.php";
 require_once "src/Exceptions/TooShortValidationException.php";
 require_once "src/Exceptions/TooLongValidationException.php";
+require_once "src/Exceptions/InvalidDateException.php";
 
 /**
  * Limpia la cadena de texto que recibe, trim(Elimina espacios en blanco delante y detras del string),
@@ -36,9 +37,9 @@ function validate_string(string $string, int $minLength = 1, int $maxLength = 50
     if (empty($string))
         throw new RequiredValidationException();
     if (strlen($string) < $minLength)
-        throw new TooShortValidationException("The string is too short");
+        throw new TooShortValidationException();
     if (strlen($string) > $maxLength)
-        throw new TooLongValidationException("The string is too long");
+        throw new TooLongValidationException();
 
     return true;
 }
@@ -82,16 +83,28 @@ function is_selected(string $value, array $array): bool
     return false;
 }
 
+/**
+ * Se encarga de validar la fecha que se introduce en el formulario, si no consigue darle el formato "Y-m-d", lanza
+ * una excepción, si "DateTime" tiene algún error lanza otra excepción. Si la fecha es válida devuelve "true".
+ * @throws RequiredValidationException
+ * @throws InvalidDateException
+ * @return true
+ */
 function validate_date(string $date): bool {
 
-    if (DateTime::createFromFormat("Y-m-d", $date)===false)
-        return false;
+    if(empty($date)){
+        throw new RequiredValidationException();
+    }
+    if (DateTime::createFromFormat("Y-m-d", $date)===false){
+        throw new InvalidDateException();
+    }
 
     $errors = DateTime::getLastErrors();
 
-    //var_dump($errors);
-    if (count($errors["warnings"])>0 || count($errors["errors"])>0)
-        return false;
+    //echo var_dump($errors);
+    if (count($errors["warnings"])>0 || count($errors["errors"])>0){
+        throw new InvalidDateException();
+    }
 
     return true;
 }

@@ -42,6 +42,7 @@ $errors = [];
 if (isPost()) {
 
     /**
+     * Validación del campo "title".
      * LLamo a la función validate_string que se encuentra en "helpers.php" y le paso por parámetros el string que he
      * obtenido del campo "title", el número mínimo de caracteres y por último el maximo.
      * La función "validate_string" devuelve true si es válido o por lo contrario lanza una excepción que es capturada
@@ -53,28 +54,31 @@ if (isPost()) {
         if (validate_string($_POST["title"], 2,  100)) {
             $data["title"] = clean($_POST["title"]);
         }
-    } catch (RequiredValidationException $e) { // ?
+    } catch (ValidationException $e) {
         $errors[] =  $e->getMessage();
-    } catch (TooLongValidationException $e) {
-        $errors[] =  $e->getMessage();
-    } catch (TooShortValidationException $e) {
+    }
+
+    /**
+     * Validación del campo "overview".
+     */
+    try {
+        if (validate_string($_POST["overview"], 2, 1000)) {
+            $data["overview"] = clean($_POST["overview"]);
+        }
+    } catch (ValidationException $e) {
         $errors[] = $e->getMessage();
     }
 
+    /**
+     * Validación del campo "release_date". Si no es válido lanza excepciones.
+     */
     try {
-        if (validate_string($_POST["overview"], 2, 1000)) // ?
-            $data["overview"] = clean($_POST["overview"]);
-    } catch (ValidationException $e) {
-        //$errors[] = $e->getMessage();   ?
-        $errors[] = "Error en validar la sinopsi";
+        if (validate_date($_POST["release_date"])) {
+            $data["release_date"] = clean($_POST["release_date"]);
+        }
+    }catch (ValidationException $e) {
+        $errors[] = $e->getMessage();
     }
-
-
-    if (!empty($_POST["release_date"]) && (validate_date($_POST["release_date"]))) // ?
-        $data["release_date"] = $_POST["release_date"];
-    else
-        $errors[] = "Cal indicar una data correcta";
-
 
     $ratingTemp = filter_input(INPUT_POST, "rating", FILTER_VALIDATE_FLOAT); // = if($_POST["rating"] == type float) ¿FLOAT?
 
