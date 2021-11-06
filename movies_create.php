@@ -89,10 +89,8 @@ if (isPost()) {
     }
 
     /**
-     * Obtiene el campo rating, verifica que tenga un entero y lo almacena en la variable @$ratingTemp.
-     * Si no tiene valor le asigna -1 para poder enviárselo por parámetros a "validate_ratingTemp" y que no de error,
-     * Si "validate_ratingTemp" no cumple con las verificaciones, lanza una excepción que se almacenará su mensaje
-     * en el array @$errores.
+     * Se encarga de obtener un archivo y almacenar sus datos en una array asociativa. Envía la array y valida que
+     * todos los datos sean correctos, si no lo son, lanza excepciones de tipo "FileUploadException".
      */
     try {
         if (validate_file($_FILES["poster"])){
