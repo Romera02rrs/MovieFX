@@ -57,6 +57,11 @@
             <td><?= $data["title"] ?></td>
         </tr>
         <tr>
+            <figure>
+                <img alt="<?=$data["title"]?>" src="<?=Movie::PATH_POSTERS?>/<?=$data["poster"]?>" width='auto' height='500px'>
+            </figure>
+        </tr>
+        <tr>
             <th>Overview</th>
             <td><?= $data["overview"] ?></td>
         </tr>

@@ -93,8 +93,9 @@ if (isPost()) {
      * todos los datos sean correctos, si no lo son, lanza excepciones de tipo "FileUploadException".
      */
     try {
-        if (validate_file($_FILES["poster"])){
-            $data["poster"] = $_FILES["poster"];
+        if ($filePath = validate_file($_FILES["poster"])){
+            //$data["poster"] = $_FILES["poster"]["name"];
+            $data["poster"] = $filePath;
         }
     }catch (FileUploadException $e){
         $errores[] = $e->getMessage();

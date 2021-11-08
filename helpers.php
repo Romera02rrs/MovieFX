@@ -135,7 +135,7 @@ function getFileExtension(string $filename): string
  * @throws TooBigFileException
  * @return true
  */
-function validate_file(array $fileAr): bool
+function validate_file(array $fileAr): string
 {
     if (empty($fileAr["size"])){
         throw new NoUploadedFileException();
@@ -146,7 +146,7 @@ function validate_file(array $fileAr): bool
     $fileErr = $fileAr["error"];                                    // 0
     $mimeType = getFileExtension($fileTmp);                         // image/jpeg
     // $mimeType = $fileAr["type"];                                 // image/jpeg
-    $extension = explode("/", $mimeType)[1];                // jpeg
+    $extension = explode("/", $mimeType)[1];               // jpeg
     $hashFilename = md5((string)rand()) . "." . $extension;         // 402c030133ac861998a20de2d56d81c1.jpeg
     $newFullFilename = Movie::PATH_POSTERS . "/" . $hashFilename;   // posters/new/d8f4a9ebb970e91153108dbf62d15bf7.jpeg
 
@@ -167,8 +167,13 @@ function validate_file(array $fileAr): bool
     if (!move_uploaded_file($fileTmp, $newFullFilename)) {
         throw new FileUploadException();
     }
-    return true;
+    return $hashFilename;
 }
+
+
+
+
+
 
 function validate_phone(string $phone):bool
 {
