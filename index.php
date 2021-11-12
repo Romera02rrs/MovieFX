@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /**
  * Este archivo se encarga de obtener todos los objetos de tipo @Movie desde la base de datos y almacenarlos en
@@ -7,10 +6,11 @@ declare(strict_types=1);
  */
 
 require "src/Movie.php";                                                        // Se llama a la clase Movie para crear objetos de tipo movie.
+require "src/User.php";
 
 $conexion = "mysql:host=localhost;dbname=MoviesFX;charset=utf8";
 $pdo = new PDO($conexion, "dbuser", "1234");                   // Se crea una conexión a la base de datos mediante el usuario dbuser.
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);     // Para que muestre los errores que tenga PDO.
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);   // Para que muestre los errores que tenga PDO.
 
 $moviesStmt = $pdo->prepare("SELECT * FROM movie");                        // Se prepara una consulta que obtendrá todas las películas de la base de datos.
 $moviesStmt->setFetchMode(PDO::FETCH_ASSOC);                               // Se indica que lo que devuelva la consulta sea un array asociativo.
@@ -34,6 +34,18 @@ function getMovies(Array $movieAr): Movie
     $movie->setRating((float)$movieAr["rating"]);
     return $movie;                                                               // Devolvemos el objeto movie con los datos insertados.
 }
+
+/*echo "La película {$movie->getTitle()} tiene una valoración de {$movie->getRating()}";
+
+$user = new User(2, "juan");
+
+$value = 3;
+
+echo "<p>El usuario {$user->getUsername()} la valora con $value puntos</p>";
+
+$user->rate($movie, $value);
+
+echo "<p>La película {$movie->getTitle()} ahora tiene una valoración de {$movie->getRating()} puntos</p>";*/
 
 require "movies.inc.php";                                                        // Llamamos a al fichero "movies.inc.php" para insertar películas manualmente.
 

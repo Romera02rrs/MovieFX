@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Archivo que se encarga de mostrar cada una de las películas, sirve como plantilla para todas las películas,
@@ -25,12 +25,25 @@
     <p><?=$movie->getReleaseDate()?></p>
     <p><?=$movie->getOverview()?></p>
     <p><?=$movie->getRating()?></p>
-
+    <h2>Acciones</h2>
+    <ul>
+        <li><a href="../pelicula-edit.php?id=<?=$movie->getId()?>"><button>Editar</button></a></li>
+        <li><a href="pelicula-delete.php?id=<?=$movie->getId()?>"><button>Borrar</button></a></li>
+    </ul>
+    <br>
+    <footer>
+        <hr>
+        <p><a href="index.php">Volver a la página de Inicio</a></p>
+    </footer>
 <?php else:?>
 
     <h2>Errores</h2>
     <p><?=print_r($errores)?></p>
-
+    <br>
+    <footer>
+        <hr>
+        <p><a href="index.php">Volver a la página de Inicio</a></p>
+    </footer>
 <?php endif; ?>
 </body>
 </html>

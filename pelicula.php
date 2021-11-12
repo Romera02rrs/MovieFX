@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /**
  * Este fichero se encarga de obtener el "id" de la película, obtiene dicho "id" de la url y la valida para saber
@@ -26,7 +25,7 @@ $pdo = new PDO("mysql:host=localhost;dbname=MoviesFX;charset=utf8", "dbuser", "1
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $moviesStmt = $pdo->prepare("SELECT * FROM movie WHERE id=:id");               // Preparo una consulta donde obtengo todos los valores de la película que coincida con la variable "id".
-$moviesStmt->bindValue("id", $id, PDO::PARAM_INT);                        // ???
+$moviesStmt->bindValue("id", $id, PDO::PARAM_INT);
 $moviesStmt->setFetchMode(PDO::FETCH_ASSOC);
 $moviesStmt->execute();
 

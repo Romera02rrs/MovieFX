@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Este archivo se encarga de mostrar una página con una LISTA de todas las películas que se encuentran en la
@@ -14,7 +14,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Rubén Romera">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--<link rel="stylesheet" type="text/css" href="style.css">-->
     <title>Movies</title>
 </head>
 <body>

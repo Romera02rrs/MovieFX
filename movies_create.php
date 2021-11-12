@@ -107,6 +107,7 @@ if (isPost()) {
  * donde se almacenan los datos del formulario.
  */
 if (isPost() && empty($errores)) {
+
     $pdo = new PDO("mysql:host=localhost;dbname=MoviesFX;charset=utf8", "dbuser", "1234");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, 'SET NAMES utf8');
@@ -118,10 +119,11 @@ if (isPost() && empty($errores)) {
     $moviesStmt->debugDumpParams();
     $moviesStmt->execute($data);
 
-    if ($moviesStmt->rowCount() !== 1)
-        $errores[] = "No s'ha pogut inserir el registre";
-    else
-        $message = "S'ha inserit el registre amb el ID ({$pdo->lastInsertId("movie")})";
+    if ($moviesStmt->rowCount() !== 1) {
+        $errores[] = "Error al insertar la película";
+    } else {
+        $message = "La película ha sido insertada cn el ID: ({$pdo->lastInsertId("movie")})";
+    }
 }
 
 require "views/movies_create.view.php";

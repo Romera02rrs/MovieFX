@@ -10,6 +10,7 @@ class Movie
     private string $releaseDate;
     private float $rating;
     private string $poster;
+    private int $voters;
 
     /**
      * @return int
@@ -107,4 +108,19 @@ class Movie
         $this->poster = $poster;
     }
 
+    /**
+     * @return int
+     */
+    public function getVoters(): int
+    {
+        return $this->voters;
+    }
+
+    /**
+     * @param int $voters
+     */
+    public function setVoters(int $voters): void
+    {
+        $this->voters = $voters;
+    }
 }

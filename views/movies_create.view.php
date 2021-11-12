@@ -4,14 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="author" content="Rubén Romera">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--<link rel="stylesheet" type="text/css" href="style.css">-->
     <title>Movies</title>
 </head>
 
 <body>
 <h1>Nueva película</h1>
 <?php if (!isPost() || !empty($errores)) :?>
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="../movies_create.php" method="post" enctype="multipart/form-data">
         <pre>
         <?php
         if (!empty($errores))
@@ -48,6 +48,12 @@
             <input type="submit" value="Crear">
         </div>
     </form>
+    <br>
+    <br>
+    <footer>
+        <hr>
+        <p><a href="index.php">Volver a la página de Inicio</a></p>
+    </footer>
 <?php endif; ?>
 <?php if (empty($errores) && isPost()) : ?>
     <h2><?=$message?></h2>
@@ -74,6 +80,11 @@
             <td><?= $data["rating"] ?></td>
         </tr>
     </table>
+    <br>
+    <footer>
+        <hr>
+        <p><a href="index.php">Volver a la página de Inicio</a></p>
+    </footer>
 <?php endif ?>
 </body>
 
