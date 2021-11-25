@@ -133,9 +133,19 @@ function getFileExtension(string $filename): string
  * @throws FileUploadException
  * @throws InvalidTypeFileException
  * @throws TooBigFileException
- * @return true
+ * @return string
  */
-function validate_file(array $fileAr): string
+
+function valida_file(){
+    try{
+        $valida = new validaFile();
+    }catch (FileUploadException $e){
+        return $e;
+    };
+
+}
+
+/*function validate_file(array $fileAr): string
 {
     if (empty($fileAr["size"])){
         throw new NoUploadedFileException();
@@ -168,7 +178,7 @@ function validate_file(array $fileAr): string
         throw new FileUploadException();
     }
     return $hashFilename;
-}
+}*/
 
 
 
